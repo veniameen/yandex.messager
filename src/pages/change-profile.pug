@@ -1,0 +1,39 @@
+extends ../layouts/base.pug
+
+block variables
+  - let title = 'Редактирование профиля'
+
+append content
+  div.profile.grid
+    div.profile__sidebar
+      a.profile__backlink.grid.grid-column.grid-middle(href="/profile.pug")
+        div.profile__backlink-btn.grid.grid-column.grid-middle
+          <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="5.19995" width="11" height="1.6" fill="#161719"/><path d="M7 1L11 6L7 11" stroke="#161719" stroke-width="1.6"/></svg>
+    div.profile__content
+      div.profile__container.grid.grid-column
+        div.profile__photo
+          img(src="../static/temp/1.png")
+          span.profile__photo-action Поменять аватар
+        div.profile__info
+          form.profile-form
+            div.profile-form__field
+              label.profile-form__label(for="email") Почта
+              input.profile-form__text-input(type="text", name="email", value="pochta@yandex.ru", required)
+            div.profile-form__field
+              label.profile-form__label(for="login") Логин
+              input.profile-form__text-input(type="text", name="login", value="ivanivanov", required)
+            div.profile-form__field
+              label.profile-form__label(for="first_name") Имя
+              input.profile-form__text-input(type="text", name="first_name", value="ivanivanov", required)
+            div.profile-form__field
+              label.profile-form__label(for="second_name") Фамилия
+              input.profile-form__text-input(type="text", name="second_name", value="ivanivanov", required)
+            div.profile-form__field
+              label.profile-form__label(for="display_name") Имя в чате
+              input.profile-form__text-input(type="text", name="display_name", value="ivanivanov", required)
+            div.profile-form__field
+              label.profile-form__label(for="phone") Телефон
+              input.profile-form__text-input(type="text", name="phone", value="ivanivanov", required)
+        div.profile__action
+            div.profile__save
+              div.btn.btn-primary Сохранить

@@ -1,0 +1,447 @@
+@import "utils/mixins"
+@import "utils/normalize"
+@import "utils/colors"
+@import "fonts"
+
+::selection
+  background: #bababa
+
+html,
+body
+  height: 100%
+
+body
+  font-family: 'Inter', Helvetica, sans-serif
+  font-weight: 300
+  font-size: 100%
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  background: var(--background)
+  color: #ffffff
+  padding: 0
+  overflow: hidden !important
+
+img
+  pointer-events: none
+  user-select: none
+
+h2
+  font-size: 1.55vw
+
+.app
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: hidden
+  z-index: 1
+
+.content
+  height: 100%
+  overflow: hidden
+  overflow-y: auto
+
+.grid
+  display: flex
+  flex-flow: row
+  &-column
+    flex-flow: column
+    &--reverse
+      flex-flow: column-reverse
+  &-middle
+    justify-content: center
+  &-right
+    justify-content: right
+  &-between
+    justify-content: space-between
+
+.link
+  font-size: .87vw
+  color: var(--blue)
+  text-decoration: none
+  transition: opacity .25s ease
+  &:hover
+    opacity: .5
+  &-danger
+    color: #FF0000
+
+.page-error
+  position: absolute
+  top: 50%
+  left: 50%
+  text-align: center
+  transform: translate(-50%, -50%)
+  font-weight: 300
+  &__code
+    font-size: 3.2vw
+  &__heading
+    font-size: 1.56vw
+    padding: 1vw 0 4.5vw
+
+.box
+  width: 30%
+  min-width: 300px
+  padding: 2vw
+  margin: 0 auto
+  &__content
+    background: var(--ground)
+    padding: 2vw
+    border-radius: 0.9vw
+    text-align: center
+    overflow: hidden
+
+.auth-form
+  &__container
+    min-height: 38vh
+    padding: .7vw 0 2.8vw
+  &__field
+    position: relative
+    margin: 1.8vw 0
+  &__label
+    position: absolute
+    font-size: 1.07vw
+    top: 50%
+    left: 0
+    transform: translateY(-50%)
+    color: #999999
+    pointer-events: none
+    transition: all .25s ease
+  &__text-input
+    width: 100%
+    color: #fff
+    background: transparent
+    border: 0
+    border-bottom: 1px solid var(--place)
+    font-size: 1.07vw
+    padding: 0.4vw 0
+    transition: border-color .25s ease
+    &:focus ~ .auth-form__label,
+    &:valid ~ .auth-form__label
+      font-size: .72vw
+      top: -17%
+    &:focus,
+    &:valid
+      border-color: var(--blue)
+  &__callout
+    margin-top: 1vw
+
+.btn
+  color: #fff
+  background: var(--place)
+  width: 100%
+  border: 0
+  font-size: 1.07vw
+  border-radius: 0.6vw
+  padding: 0.8vw 0
+  cursor: pointer
+  text-align: center
+  transition: opacity .25s ease
+  &-primary
+    background: var(--blue)
+    &:hover
+      opacity: .5
+
+.chat
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: hidden
+  &__sidebar
+    display: flex
+    flex-flow: column
+    width: 24.3%
+    border-right: 1px solid var(--place)
+  &__content
+    position: relative
+    flex: 1
+    padding: 0 1.6vw
+  &__default-message
+    position: absolute
+    top: 50%
+    left: 50%
+    font-size: .95vw
+    color: var(--gray)
+    transform: translate(-50%, -50%)
+  &__nav
+    padding: .8vw
+    text-align: right
+    &-link
+      padding: 0.8vw 0 0.8vw 0.6vw
+      display: inline-block
+      font-size: 0.95vw
+      text-decoration: none
+      color: var(--gray)
+      transition: opacity .25s ease
+      & svg
+        width: .6vw
+        height: .8vw
+        margin-bottom: -0.1vw
+      &:hover
+        opacity: .5
+    &-search
+      padding: 0.8vw 0 0.3vw
+  &__header
+    padding: .75vw 0
+    border-bottom: 1px solid var(--place)
+  &__user
+    &-list
+      flex: 1
+      overflow-y: auto
+      &::-webkit-scrollbar
+        width: 8px
+      &::-webkit-scrollbar-track
+        background: transparent
+      &::-webkit-scrollbar-thumb
+        background-color: var(--ground)
+        border-radius: 10vw
+        border-right: .2vw solid var(--background)
+    &-thumb
+      width: 2.65vw
+    &-name
+      flex: 1
+      padding: 0 .7vw
+      font-size: 1.07vw
+    &-option
+      padding: .7vw 1vw
+      cursor: pointer
+      & svg
+        width: 1.1vw
+        height: 1.1vw
+        & circle
+          transition: fill .25s ease
+      &:hover
+        & svg circle
+          fill: var(--blue)
+  &__body
+    padding: 1vw 0
+    flex: 1
+  &__footer
+    padding: 0.75vw 0
+    border-bottom: 1px solid var(--place)
+  &__media
+    background: transparent
+    border: 0
+    width: 2.6vw
+    height: 2.6vw
+    cursor: pointer
+    & svg
+      width: 1.9vw
+      height: 1.9vw
+    & svg path
+      transition: fill .25s ease
+    &:hover svg path
+      fill: var(--blue)
+  &__text
+    flex: 1
+    padding: 0 .7vw
+    &-input
+      width: 100%
+      height: 100%
+      background: var(--ground)
+      border: 0
+      color: #fff
+      border-radius: 10vw
+      padding: 0 1.4vw
+      font-size: 1vw
+  &__send
+    position: relative
+    border-radius: 50%
+    width: 2.2vw
+    height: 2.2vw
+    border: 0
+    background: var(--blue)
+    transition: opacity .25s ease
+    cursor: pointer
+    & svg
+      position: absolute
+      width: 1.05vw
+      height: 1.05vw
+      top: 50%
+      left: 50%
+      transform: translate(-43%, -50%)
+    &:hover
+      opacity: .5
+
+.search-form
+  width: 100%
+  &__input
+    width: 100%
+    background-color: var(--ground)
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMS41OTI0IDExLjQxMzhDMTAuMTYwNSAxMi44NDU3IDcuODM4ODYgMTIuODQ1NyA2LjQwNjk0IDExLjQxMzhDNC45NzUwMiA5Ljk4MTkgNC45NzUwMiA3LjY2MDMgNi40MDY5NCA2LjIyODM3QzcuODM4ODYgNC43OTY0NSAxMC4xNjA1IDQuNzk2NDUgMTEuNTkyNCA2LjIyODM3QzEzLjAyNDMgNy42NjAzIDEzLjAyNDMgOS45ODE5IDExLjU5MjQgMTEuNDEzOFpNMTIuMDMyOCAxMi43OTY4QzEwLjA3MjUgMTQuMjk2MiA3LjI1Njk2IDE0LjE0OTUgNS40NjQxMyAxMi4zNTY2QzMuNTExNTEgMTAuNDA0IDMuNTExNTEgNy4yMzgxOSA1LjQ2NDEzIDUuMjg1NTZDNy40MTY3NSAzLjMzMjk0IDEwLjU4MjYgMy4zMzI5NCAxMi41MzUyIDUuMjg1NTZDMTQuMzI3OSA3LjA3ODMxIDE0LjQ3NDcgOS44OTM3MyAxMi45NzU1IDExLjg1MzlMMTYuNTQyMyAxNS40MjA2TDE1LjU5OTQgMTYuMzYzNUwxMi4wMzI4IDEyLjc5NjhaIiBmaWxsPSIjOTk5OTk5Ii8+Cjwvc3ZnPgo=)
+    background-repeat: no-repeat
+    background-position: 3% 50%
+    background-size: 1.6vw
+    border: 0
+    color: #fff
+    font-size: 0.95vw
+    border-radius: 0.4vw
+    padding: 0.85vw 2.65vw 0.75vw
+    &::placeholder
+      text-align: center
+
+.user
+  position: relative
+  padding: 0.45vw 0
+  &::before,
+  &::after
+    content: ""
+    position: absolute
+    left: 50%
+    width: 93%
+    transform: translateX(-50%)
+    border-top: 1px solid var(--place)
+    display: none
+  &::before
+    top: 0
+  &::after
+    display: block
+    bottom: -1px
+  &:first-child
+    &::before
+      display: block
+  &__link
+    padding: .6vw 0.8vw
+    color: #fff
+    text-decoration: none
+    user-select: none
+    transition: background .25s ease
+    &:hover
+      background: var(--gray-2)
+  &__photo
+    pointer-events: none
+    width: 16%
+    &-img
+      width: 100%
+  &__content
+    pointer-events: none
+    padding: 0 .8vw
+    flex: 1
+  &__name
+    font-size: 1vw
+    font-weight: 500
+    padding-bottom: 0.3vw
+  &__message
+    font-size: .95vw
+    color: var(--gray)
+  &__info
+    pointer-events: none
+    text-align: right
+  &__message
+    &-time
+      font-size: .7vw
+      color: var(--gray)
+    &-count
+      font-size: .8vw
+      padding: .35vw 0
+      width: 1.5vw
+      height: 1.5vw
+      border-radius: 100%
+      background: var(--blue)
+      display: block
+      text-align: center
+
+.profile
+  width: 100%
+  height: 100%
+  &__sidebar
+    width: 5vw
+    border-right: 1px solid var(--place)
+  &__backlink
+    position: relative
+    height: 100%
+    &-btn
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 2vw
+      height: 2vw
+      border-radius: 50%
+      background: var(--blue)
+      transform: translate(-50%, -50%)
+      text-align: center
+      & svg
+        width: 1.05vw
+        height: 1.05vw
+        margin: 0 auto
+        transform: scale(-1, -1)
+  &__content
+    flex: 1
+    padding: 5vw 0 6vw
+    overflow-y: auto
+  &__container
+    width: 42%
+    margin: 0 auto
+  &__photo
+    position: relative
+    width: 10vw
+    height: 10vw
+    margin: 0 auto
+    border-radius: 50%
+    margin-bottom: 1.4vw
+    overflow: hidden
+    & img
+      width: 100%
+      height: 100%
+    &-action
+      position: absolute
+      font-size: 1.07vw
+      width: 100%
+      padding: 0 1vw
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      text-align: center
+      opacity: 0
+      cursor: pointer
+      user-select: none
+      transition: opacity 0.25s ease
+      z-index: 9
+    &::before
+      content: ''
+      position: absolute
+      width: 100%
+      height: 100%
+      top: 0
+      left: 0
+      background: rgba(0,0,0,.7)
+      opacity: 0
+      transition: opacity .25s ease
+    &:hover
+      & .profile__photo-action
+        opacity: 1
+      &::before
+        opacity: 1
+  &__fullname
+    font-size: 1.3vw
+    font-weight: 500
+    text-align: center
+  &__info
+    padding: 3.7vw 0 2.6vw
+  &__action-item
+    padding: .8vw 0
+    border-bottom: 1px solid var(--place)
+    &:last-child
+      border-bottom: 0
+  &__save
+    width: 22vw
+    margin: 0 auto
+
+.profile-form
+  &__field
+    display: flex
+    border-bottom: 1px solid var(--place)
+    &:last-child
+      border-bottom: 0
+  &__label
+    display: flex
+    flex-flow: column
+    justify-content: center
+    font-size: 1.07vw
+    width: 15vw
+  &__text-input
+    border: 0
+    background: transparent
+    color: var(--gray)
+    flex: 1
+    font-size: 1.07vw
+    padding: 0.8vw 0
+    text-align: right

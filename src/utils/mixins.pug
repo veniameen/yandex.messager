@@ -1,0 +1,26 @@
+mixin auth_input(type, name, index, placeholder)
+  div.auth-form__field
+    input(
+      type= type,
+      name= name,
+      tabindex= index,
+      autocorrect="off",
+      autocapitalize="off"
+      value=""
+      required
+    ).auth-form__text-input
+    label.auth-form__label(for= name)= placeholder
+
+mixin user(url, img, name, message, time, count)
+  div.user
+    a.user__link.grid(href= url)
+      div.user__photo
+        img.user__photo-img(src= img)
+      div.user__content
+        div.user__name #{name}
+        div.user__message!= message
+      div.user__info.grid.grid-column.grid-between
+        span.user__message-time #{time}
+        - if(count)
+          div.grid.grid-right
+            span.user__message-count #{count}
