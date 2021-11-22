@@ -1,14 +1,11 @@
 const express = require('express');
 const server = express();
 
-const routes = ['auth', '500'];
+const routes = ['login', '404', '500', 'change-password', 'change-profile', 'chat', 'index', 'profile', 'registration'];
 const dir = `${__dirname}/dist`;
 
 server
     .use(express.static('./dist'))
-    .get('/', function(req, res) {
-        res.status(200).sendFile(`${dir}/auth.html`, 200);
-    })
     .get('/:page', function(req, res) {
         page = req.params.page;
 
