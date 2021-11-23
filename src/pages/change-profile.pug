@@ -1,4 +1,5 @@
 extends ../layouts/base.pug
+include ../utils/mixins.pug
 
 block variables
   - let title = 'Редактирование профиля'
@@ -16,24 +17,13 @@ append content
           span.profile__photo-action Поменять аватар
         div.profile__info
           form.profile-form
-            div.profile-form__field
-              label.profile-form__label(for="email") Почта
-              input.profile-form__text-input(type="text", name="email", value="pochta@yandex.ru", required)
-            div.profile-form__field
-              label.profile-form__label(for="login") Логин
-              input.profile-form__text-input(type="text", name="login", value="ivanivanov", required)
-            div.profile-form__field
-              label.profile-form__label(for="first_name") Имя
-              input.profile-form__text-input(type="text", name="first_name", value="ivanivanov", required)
-            div.profile-form__field
-              label.profile-form__label(for="second_name") Фамилия
-              input.profile-form__text-input(type="text", name="second_name", value="ivanivanov", required)
-            div.profile-form__field
-              label.profile-form__label(for="display_name") Имя в чате
-              input.profile-form__text-input(type="text", name="display_name", value="ivanivanov", required)
-            div.profile-form__field
-              label.profile-form__label(for="phone") Телефон
-              input.profile-form__text-input(type="text", name="phone", value="ivanivanov", required)
-        div.profile__action
-            div.profile__save
-              div.btn.btn-primary Сохранить
+            div.profile-form__list
+              +profile_input("text", "email", "Почта", "pochta@yandex.ru")(required)
+              +profile_input("text", "login", "Логин", "ivanivanov")(required)
+              +profile_input("text", "first_name", "Имя", "ivanivanov")(required)
+              +profile_input("text", "second_name", "Фамилия", "ivanivanov")(required)
+              +profile_input("text", "display_name", "Имя в чате", "ivanivanov")(required)
+              +profile_input("text", "phone", "Телефон", "ivanivanov")(required)
+            div.profile__action
+                div.profile__save
+                  button.btn.btn-primary Сохранить

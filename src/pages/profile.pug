@@ -1,4 +1,5 @@
 extends ../layouts/base.pug
+include ../utils/mixins.pug
 
 block variables
   - let title = 'Профиль'
@@ -17,24 +18,13 @@ append content
         div.profile__fullname Иван
         div.profile__info
           div.profile-form
-            div.profile-form__field
-              label.profile-form__label Почта
-              input.profile-form__text-input(type="text", value="pochta@yandex.ru", disabled)
-            div.profile-form__field
-              label.profile-form__label Логин
-              input.profile-form__text-input(type="text", value="ivanivanov", disabled)
-            div.profile-form__field
-              label.profile-form__label Имя
-              input.profile-form__text-input(type="text", value="ivanivanov", disabled)
-            div.profile-form__field
-              label.profile-form__label Фамилия
-              input.profile-form__text-input(type="text", value="ivanivanov", disabled)
-            div.profile-form__field
-              label.profile-form__label Имя в чате
-              input.profile-form__text-input(type="text", value="ivanivanov", disabled)
-            div.profile-form__field
-              label.profile-form__label Телефон
-              input.profile-form__text-input(type="text", value="ivanivanov", disabled)
+            div.profile-form__list
+              +profile_input("text", "email", "Почта", "pochta@yandex.ru")(disabled)
+              +profile_input("text", "login", "Логин", "ivanivanov")(disabled)
+              +profile_input("text", "first_name", "Имя", "ivanivanov")(disabled)
+              +profile_input("text", "second_name", "Фамилия", "ivanivanov")(disabled)
+              +profile_input("text", "display_name", "Имя в чате", "ivanivanov")(disabled)
+              +profile_input("text", "Телефон", "Телефон", "ivanivanov")(disabled)
         div.profile__action
           div.profile__action
             ul.profile__action-list

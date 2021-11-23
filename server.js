@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const PORT = process.env.PORT || 3000;
 
 const routes = ['login', '404', '500', 'change-password', 'change-profile', 'chat', 'index', 'profile', 'registration'];
 const dir = `${__dirname}/dist`;
@@ -20,6 +21,6 @@ server
         }
     });
 
-    server.listen(3000, () => {
-        console.log("✅ Express server running on port 3000!")
+    server.listen(PORT, () => {
+        console.log(`✅ Express server running on port ${PORT}!`)
     })

@@ -1,9 +1,6 @@
 # Yandex Praktikum Messager
 Messenger web app using Pug, Express
 
-## Pull request link
-[]()
-
 ## Building and running
 ⚡ Installation
 ```

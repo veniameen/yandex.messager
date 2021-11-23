@@ -1,6 +1,7 @@
 mixin auth_input(type, name, index, placeholder)
   div.auth-form__field
-    input(
+    input.auth-form__text-input(
+      id= name,
       type= type,
       name= name,
       tabindex= index,
@@ -8,7 +9,7 @@ mixin auth_input(type, name, index, placeholder)
       autocapitalize="off"
       value=""
       required
-    ).auth-form__text-input
+    )&attributes(attributes)
     label.auth-form__label(for= name)= placeholder
 
 mixin user(url, img, name, message, time, count)
@@ -17,10 +18,15 @@ mixin user(url, img, name, message, time, count)
       div.user__photo
         img.user__photo-img(src= img)
       div.user__content
-        div.user__name #{name}
+        div.user__name= name
         div.user__message!= message
       div.user__info.grid.grid-column.grid-between
-        span.user__message-time #{time}
+        time.user__message-time= time
         - if(count)
           div.grid.grid-right
-            span.user__message-count #{count}
+            span.user__message-count= count
+
+mixin profile_input(type, name, placeholder, value, option)
+  div.profile-form__field
+    label.profile-form__label(for= name)= placeholder
+    input.profile-form__text-input(id= name, type= type, value= value)&attributes(attributes)

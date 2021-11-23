@@ -1,0 +1,146 @@
+.chat
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: hidden
+  &__sidebar
+    display: flex
+    flex-flow: column
+    width: 24.3%
+    border-right: 1px solid var(--place)
+  &__content
+    position: relative
+    flex: 1
+    padding: 0 1.6vw
+  &__default-message
+    position: absolute
+    top: 50%
+    left: 50%
+    font-size: .95vw
+    color: var(--gray)
+    transform: translate(-50%, -50%)
+  &__nav
+    padding: .8vw
+    text-align: right
+    &-link
+      padding: 0.8vw 0 0.8vw 0.6vw
+      display: inline-block
+      font-size: 0.95vw
+      text-decoration: none
+      color: var(--gray)
+      transition: opacity .25s ease
+      & svg
+        width: .6vw
+        height: .8vw
+        margin-bottom: -0.1vw
+      &:hover
+        opacity: .5
+    &-search
+      padding: 0.8vw 0 0.3vw
+  &__header
+    position: relative
+    padding: .75vw 0
+    border-bottom: 1px solid var(--place)
+  &__user
+    &-list
+      flex: 1
+      overflow-y: auto
+      &::-webkit-scrollbar
+        width: 8px
+      &::-webkit-scrollbar-track
+        background: transparent
+      &::-webkit-scrollbar-thumb
+        background-color: var(--ground)
+        border-radius: 10vw
+        border-right: .2vw solid var(--background)
+    &-thumb
+      width: 2.65vw
+    &-name
+      flex: 1
+      padding: 0 .7vw
+      font-size: 1.07vw
+    &-option
+      padding: .7vw 1vw
+      cursor: pointer
+      border-radius: 50%
+      transition: background .25s ease
+      &-dropdown
+        position: absolute
+        bottom: 0
+        right: 0
+        transform: translate(.75vw, 110%)
+      & svg
+        width: 1.1vw
+        height: 1.1vw
+        & circle
+          transition: fill .25s ease
+      &:hover
+        background: var(--ground)
+        & svg circle
+          fill: var(--blue)
+  &__body
+    padding: 1vw 0
+    flex: 1
+  &__footer
+    position: relative
+    padding: 0.75vw 0
+    border-top: 1px solid var(--place)
+  &__media
+    background: transparent
+    border: 0
+    width: 2.6vw
+    height: 2.6vw
+    padding: 0.35vw
+    &-dropdown
+      position: absolute
+      top: 0
+      left: 0
+      transform: translate(-.75vw, -110%)
+    & svg
+      cursor: pointer
+      width: 1.9vw
+      height: 1.9vw
+    & svg path
+      transition: fill .25s ease
+    &:hover svg path
+      fill: var(--blue)
+  &__text
+    flex: 1
+    padding: 0 .7vw
+    &-input
+      width: 100%
+      height: 100%
+      background: var(--ground)
+      border: 0
+      color: #fff
+      border-radius: 10vw
+      padding: 0 1.4vw
+      font-size: 1vw
+  &__send
+    position: relative
+    border-radius: 50%
+    width: 2.2vw
+    height: 2.2vw
+    border: 0
+    background: var(--blue)
+    transition: opacity .25s ease
+    cursor: pointer
+    & svg
+      position: absolute
+      width: 1.05vw
+      height: 1.05vw
+      top: 50%
+      left: 50%
+      transform: translate(-43%, -50%)
+      & *
+        transition: all .25s ease
+    &:hover
+      opacity: .5
+      & path
+        stroke: #fff
+      & rect
+        fill: #fff
+
+@import "search-form.sass"
+@import "user-list.sass"
+@import "dropdown.sass"
