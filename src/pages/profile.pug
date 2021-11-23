@@ -26,11 +26,10 @@ append content
               +profile_input("text", "display_name", "Имя в чате", "ivanivanov")(disabled)
               +profile_input("text", "Телефон", "Телефон", "ivanivanov")(disabled)
         div.profile__action
-          div.profile__action
-            ul.profile__action-list
-              li.profile__action-item
-                a.link(href="/change-profile.pug") Изменить данные
-              li.profile__action-item
-                a.link(href="/change-password.pug") Изменить пароль
-              li.profile__action-item
-                a.link.link-danger(href="/") Выйти
+          ul.profile__action-list
+            li.profile__action-item
+              a.link(href="/change-profile.pug") Изменить данные
+            li.profile__action-item
+              a.link(href="/change-password.pug") Изменить пароль
+            li.profile__action-item
+              a.link.link-danger(href="/") Выйти
