@@ -5,9 +5,9 @@ const data = {
   status: '404',
   caption: 'Не туда попали',
   backlink: {
-      href: '/',
-      text: 'Назад к чатам'
-  }
+    href: '/',
+    text: 'Назад к чатам',
+  },
 };
 
 page.render(html, data);

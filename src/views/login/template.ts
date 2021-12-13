@@ -1,4 +1,4 @@
-export default`
+export default `
     <div class="content grid grid-column--reverse grid-middle">
         <div class="box">
             <div class="box__content">

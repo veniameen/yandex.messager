@@ -8,23 +8,23 @@ const data = {
       name: 'Андрей',
       last_message: 'Изображение',
       time: '10:49',
-      unreads: 2
+      unreads: 2,
     },
     {
       photo: '/images/temp/5.png',
       name: 'Вадим',
       last_message: 'Вы: стикер',
       time: '12:00',
-      unreads: undefined
+      unreads: undefined,
     },
     {
       photo: '/images/temp/4.png',
       name: 'Илья',
       last_message: 'Друзья, у меня для вас особенный выпуск новостей!...',
       time: '15:12',
-      unreads: 4
-    }
-  ]
+      unreads: 4,
+    },
+  ],
 };
 
 page.render(html, data);

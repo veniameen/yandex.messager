@@ -7,57 +7,61 @@ const data = {
   photo: '/images/temp/1.png',
   name: 'Иван Иванов',
   fields: [
-      { name: 'email', type: 'text', title: 'Почта', value: 'pochta@yandex.ru' },
-      { name: 'login', type: 'text', title: 'Логин', value: 'ivanivanov' },
-      { name: 'first_name', type: 'text', title: 'Имя', value: 'Иван' },
-      { name: 'second_name', type: 'text', title: 'Фамилия', value: 'Иванов' },
-      { name: 'display_name', type: 'text', title: 'Имя в чате', value: 'ivanivanov' },
-      { name: 'phone', type: 'tel', title: 'Телефон', value: '+7192471842' }
-  ]
+    { name: 'email', type: 'text', title: 'Почта', value: 'pochta@yandex.ru' },
+    { name: 'login', type: 'text', title: 'Логин', value: 'ivanivanov' },
+    { name: 'first_name', type: 'text', title: 'Имя', value: 'Иван' },
+    { name: 'second_name', type: 'text', title: 'Фамилия', value: 'Иванов' },
+    {
+      name: 'display_name',
+      type: 'text',
+      title: 'Имя в чате',
+      value: 'ivanivanov',
+    },
+    { name: 'phone', type: 'tel', title: 'Телефон', value: '+7192471842' },
+  ],
 };
 
 const checks = {
-  email: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.EMAIL
-  ],
+  email: [Validator.CHECKS.REQUIRED, Validator.CHECKS.EMAIL],
   login: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.LENGTH(3, 20),
-        Validator.CHECKS.ALPHANUMERIC
+    Validator.CHECKS.REQUIRED,
+    Validator.CHECKS.LENGTH(3, 20),
+    Validator.CHECKS.ALPHANUMERIC,
   ],
   first_name: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.ALPHABETIC,
-        Validator.CHECKS.LENGTH(3, 28),
+    Validator.CHECKS.REQUIRED,
+    Validator.CHECKS.ALPHABETIC,
+    Validator.CHECKS.LENGTH(3, 28),
   ],
   second_name: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.ALPHABETIC,
-        Validator.CHECKS.LENGTH(3, 28),
+    Validator.CHECKS.REQUIRED,
+    Validator.CHECKS.ALPHABETIC,
+    Validator.CHECKS.LENGTH(3, 28),
   ],
   display_name: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.ALPHABETIC,
-        Validator.CHECKS.LENGTH(3, 28),
-    ],
-    phone: [
-        Validator.CHECKS.REQUIRED,
-        Validator.CHECKS.PHONE,
-        Validator.CHECKS.LENGTH(10, 15),
-  ]
-}
+    Validator.CHECKS.REQUIRED,
+    Validator.CHECKS.ALPHABETIC,
+    Validator.CHECKS.LENGTH(3, 28),
+  ],
+  phone: [
+    Validator.CHECKS.REQUIRED,
+    Validator.CHECKS.PHONE,
+    Validator.CHECKS.LENGTH(10, 15),
+  ],
+};
 
 const button = new Button({
-  name: 'Сохранить'
+  name: 'Сохранить',
 });
 
-if (button.element)
-    Handlebars.registerPartial('button', button.element.innerHTML);
+if (button.element) {
+  Handlebars.registerPartial('button', button.element.innerHTML);
+}
 
 page.render(html, data);
 
 const form: HTMLFormElement | null = document.querySelector('.profile-form');
 
-if (form)
-    new Validator(form, checks);
+if (form) {
+  new Validator(form, checks);
+}
