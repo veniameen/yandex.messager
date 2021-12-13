@@ -7,6 +7,7 @@
     "start": "npm run build && node server.js",
     "build": "npm run clear && parcel build src/**/app.sass --no-source-maps --public-url ./ && npm run copy && tsc",
     "copy": "copyfiles -u 2 src/**/*.{svg,png} dist",
+    "deploy": "npm run build && pug netlify/pages/*.pug --out dist",
     "eslint": "./node_modules/.bin/eslint src/**/**/*.ts",
     "stylelint": "npx stylelint \"**/*.sass\""
   },
@@ -53,6 +54,7 @@
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-custom-dist-structure": "^1.1.18",
     "postcss-sass": "^0.5.0",
+    "pug-cli": "^1.0.0-alpha6",
     "sass": "^1.43.4",
     "stylelint-config-standard": "^24.0.0",
     "ts-node": "^10.4.0",
