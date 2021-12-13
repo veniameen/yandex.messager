@@ -38,3 +38,5 @@ npm run stylelint
 ## Netlify link
 https://festive-borg-967a59.netlify.app/
 
+## PR
+https://github.com/veniaminryadnov/yandex.messager/pull/2
