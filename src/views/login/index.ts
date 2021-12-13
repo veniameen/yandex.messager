@@ -27,7 +27,6 @@ const checks = {
   ],
   password: [
     Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.PASSWORD_STRENGTH,
     Validator.CHECKS.LENGTH(8, 40),
   ],
 };

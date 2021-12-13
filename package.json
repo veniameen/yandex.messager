@@ -6,7 +6,6 @@
     "clear": "rm -rf dist/* .cache/*",
     "start": "npm run build && node server.js",
     "build": "npm run clear && parcel build src/**/app.sass --no-source-maps --public-url ./ && npm run copy && tsc",
-    "dev": "npm run clear && parcel serve src/pages/*.pug --no-source-maps --port 3000 --open",
     "copy": "copyfiles -u 2 src/**/*.{svg,png} dist",
     "eslint": "./node_modules/.bin/eslint src/**/**/*.ts",
     "stylelint": "npx stylelint \"**/*.sass\""

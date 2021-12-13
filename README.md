@@ -1,5 +1,9 @@
 # Yandex Praktikum Messager
-Messenger web app using Pug, Express
+Messenger web app using 
+* Handlebars
+* Express
+* Typescript
+* Sass
 
 ## Building and running
 ⚡ Installation
@@ -17,13 +21,19 @@ Your app should now be running on http://localhost:3000/
 npm run build
 ```
 
+📕 Eslint
+```
+npm run eslint
+```
+
+📗 Stylelint
+```
+npm run stylelint
+```
+
 ## Figma template
 [link](https://www.figma.com/file/5qqMMK48bpSxZEvGV3NG13/Messager?node-id=0%3A1)
 
 ## Netlify link
 https://festive-borg-967a59.netlify.app/
 
-## Bug fix
-Serve index.html when using multiple entries | parcel server <br/>
-https://github.com/parcel-bundler/parcel/issues/1778 <br/>
-node_modules/parcel-bundler/src/Server.js
