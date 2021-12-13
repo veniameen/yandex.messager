@@ -9,7 +9,7 @@
     "strictNullChecks": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "rootDir": "./src",
     "outDir": "./dist"
   },

@@ -1,7 +1,35 @@
 {
-    "extends": "stylelint-config-sass-guidelines",
-    "rules": {
-      "indentation": "tab",
-      "number-leading-zero": null
+  "extends": ["stylelint-config-standard"],
+  "overrides": [
+    {
+      "files": ["**/*.sass"],
+      "customSyntax": "postcss-sass",
+      "rules": {
+        "block-closing-brace-empty-line-before": null,
+        "block-closing-brace-newline-after": null,
+        "block-closing-brace-newline-before": null,
+        "block-closing-brace-space-before": null,
+        "block-opening-brace-newline-after": null,
+        "block-opening-brace-space-after": null,
+        "block-opening-brace-space-before": null,
+        "value-list-comma-space-after": null,
+        "value-keyword-case": null,
+        "property-no-vendor-prefix": null,
+        "no-descending-specificity": null,
+        "selector-no-vendor-prefix": null,
+        "declaration-colon-newline-after": "always-multi-line",
+        "rule-empty-line-before": null,
+        "number-leading-zero": null,
+        "string-quotes": null,
+        "color-function-notation": null,
+        "alpha-value-notation": "number",
+        "selector-class-pattern": null,
+        "no-missing-end-of-source-newline": null,
+        "declaration-block-semicolon-newline-after": null,
+        "declaration-block-semicolon-space-after": null,
+        "declaration-block-semicolon-space-before": null,
+        "declaration-block-trailing-semicolon": null
+      }
     }
-  }
+  ]
+}
