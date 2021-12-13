@@ -6,6 +6,15 @@
 ::selection
   background: #bababa
 
+::-webkit-scrollbar
+  width: 8px
+::-webkit-scrollbar-track
+  background: transparent
+::-webkit-scrollbar-thumb
+  background-color: var(--ground)
+  border-radius: 10vw
+  border-right: .2vw solid var(--background)
+
 html,
 body
   height: 100%
@@ -106,6 +115,19 @@ h2
     background: var(--blue)
     &:hover
       opacity: .5
+
+.field__error
+  font-size: .75vw
+  color: var(--red)
+  display: none
+  width: 100%
+  position: absolute
+  right: -1vw
+  top: 50%
+  transform: translate(100%, -50%)
+  &--show
+    display: block
+
 
 @import "layouts/auth.sass"
 @import "layouts/chat/index.sass"

@@ -41,18 +41,11 @@
     position: relative
     padding: .75vw 0
     border-bottom: 1px solid var(--place)
+    z-index: 9
   &__user
     &-list
       flex: 1
       overflow-y: auto
-      &::-webkit-scrollbar
-        width: 8px
-      &::-webkit-scrollbar-track
-        background: transparent
-      &::-webkit-scrollbar-thumb
-        background-color: var(--ground)
-        border-radius: 10vw
-        border-right: .2vw solid var(--background)
     &-thumb
       width: 2.65vw
     &-name
@@ -79,8 +72,9 @@
         & svg circle
           fill: var(--blue)
   &__body
-    padding: 1vw 0
     flex: 1
+    padding: 1vw 0
+    overflow-x: hidden
   &__footer
     position: relative
     padding: 0.75vw 0
@@ -140,6 +134,40 @@
         stroke: #fff
       & rect
         fill: #fff
+  &__message
+    position: relative
+    max-width: 45%
+    min-width: 13%
+    margin: .5%
+    padding: 1% 1.5% 2%
+    border-radius: 0 1.3vw 1.3vw 1.3vw
+    font-size: 1.07vw
+    & .timestamp
+      position: absolute
+      right: .4vw
+      bottom: .4vw
+      padding: 0.15vw 0.4vw
+      border-radius: 1vw
+      background: var(--ground)
+    &_type
+      &_text
+        background-color: var(--ground)
+      &_other
+        border-radius: 1.3vw
+        padding: 0
+        flex: none
+        background-color: var(--ground)
+        overflow: hidden
+        & img
+          display: block
+          width: 100%
+      &_other .timestamp
+        background-color: var(--gray-2)
+    &_owner
+      align-self: flex-end
+      border-radius: 1.3vw 1.3vw 0 1.3vw
+    &_status_viewed .timestamp::before
+      content: url(../../assets/images/status-viewed.svg)
 
 @import "search-form.sass"
 @import "user-list.sass"
