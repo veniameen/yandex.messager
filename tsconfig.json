@@ -12,7 +12,10 @@
     "sourceMap": true,
     "baseUrl": ".",
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "src", "./node_modules/handlebars/types"]
+  "include": ["src/**/*.ts", "./node_modules/handlebars/types"]
 }
