@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
@@ -17,5 +17,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "./node_modules/handlebars/types"]
+  "include": ["src", "./node_modules/handlebars/types"]
 }
