@@ -10,12 +10,8 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "rootDir": "src",
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["src", "./node_modules/handlebars/types"]
+  "include": ["./src", "./node_modules/handlebars/types"]
 }
