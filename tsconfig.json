@@ -10,12 +10,8 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "rootDir": "./src",
-    "outDir": "./dist"
+    "rootDir": "src",
+    "outDir": "dist"
   },
-  "exclude": [
-    "dist",
-    "node_modules"
-  ],
   "include": ["./src", "./node_modules/handlebars/types"]
 }
