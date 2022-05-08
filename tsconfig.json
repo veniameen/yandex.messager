@@ -9,9 +9,13 @@
     "strictNullChecks": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "rootDir": "./src",
     "outDir": "./dist"
   },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
   "include": ["./src", "./node_modules/handlebars/types"]
 }
