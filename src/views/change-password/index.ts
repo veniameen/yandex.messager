@@ -1,5 +1,5 @@
 import { template } from './template';
-import Button from './../../components/button/index';
+import Button from '../../components/Button/index';
 import Component from '../../modules/Component';
 import Validator from '../../modules/Validator';
 import { passwordValidationRules as checks } from '../../config';

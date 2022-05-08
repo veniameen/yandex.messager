@@ -3,7 +3,7 @@ import Component from '../../modules/Component';
 import { chatNameValidationRules, loginValidationRules, storeMap, chatIDValidationRules } from '../../config';
 import controller from './controller';
 import { Routes } from '../../index';
-import Button from '../../components/button/index';
+import Button from '../../components/Button/index';
 import Validator from '../../modules/Validator';
 import xssEscape from '../../utils/xssEscape';
 

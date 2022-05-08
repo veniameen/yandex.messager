@@ -1,5 +1,5 @@
 import { template } from './template';
-import Button from '../../components/button/index';
+import Button from '../../components/Button/index';
 import FormValidator from '../../modules/Validator';
 import Component from '../../modules/Component';
 import controller from './controller';
