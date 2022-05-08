@@ -5,6 +5,10 @@
 * Express
 * Typescript
 * Sass
+* Mocha / Chai
+* ESLint / StyleLint
+* Netlify
+* Git
 
 ## Building and running
 ⚡ Installation
@@ -32,9 +36,13 @@ npm run eslint
 npm run stylelint
 ```
 
+🐙 Auto-tests
+```
+npm run test
+```
+
 ## Figma template
 [link](https://www.figma.com/file/5qqMMK48bpSxZEvGV3NG13/Messager?node-id=0%3A1)
 
 ## Netlify link
 https://festive-borg-967a59.netlify.app/
-

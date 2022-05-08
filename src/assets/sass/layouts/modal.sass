@@ -1,0 +1,61 @@
+.modal
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  pointer-events: none
+  opacity: 0
+  transition: opacity .25s ease
+  background: rgba(0, 0, 0, .7)
+  z-index: 99
+  &_active
+    pointer-events: all
+    opacity: 1
+  &__header
+    font-size: 1.15vw
+    text-align: center
+  &-form
+    position: fixed
+    top: 50%
+    left: 50%
+    width: 27vw
+    min-width: 200px
+    transform: translate(-50%, -50%)
+    padding: 3vw 2vw 2.2vw
+    background: #1e1f21
+    border-radius: 12px
+    &__field
+      position: relative
+    &__field-container
+      padding: 2.5vw 0 2vw
+      & .field__error
+        text-align: center
+        right: 0
+        bottom: -0.4vw
+        transform: translate(0, 100%)
+    &__label
+      position: absolute
+      font-size: 1.07vw
+      top: 50%
+      left: 0
+      transform: translateY(-50%)
+      color: #999
+      pointer-events: none
+      transition: all .25s ease
+    &__text-input
+      width: 100%
+      color: #fff
+      background: transparent
+      border: 0
+      border-bottom: 1px solid var(--place)
+      font-size: 1.07vw
+      padding: 0.4vw 0
+      transition: border-color .25s ease
+      &:focus ~ .modal-form__label,
+      &:valid ~ .modal-form__label
+        font-size: .72vw
+        top: -17%
+      &:focus,
+      &:valid
+        border-color: var(--blue)

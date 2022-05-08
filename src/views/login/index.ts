@@ -1,48 +1,42 @@
-import { page } from '../../utils/hbs-render.js';
-import Button from '../../components/Button/index.js';
-import Validator from '../../modules/Validator.js';
-import html from './template.js';
+import { template } from './template';
+import Button from '../../components/button/index';
+import FormValidator from '../../modules/Validator';
+import Component from '../../modules/Component';
+import controller from './controller';
+import { Routes } from '../../index';
+import { loginValidationRules as checks } from '../../config';
 
-export const data = {
-  fields: {
-    login: {
-      name: 'login',
-      type: 'text',
-      title: 'Логин',
-      index: 1,
-    },
-    password: {
-      name: 'password',
-      type: 'password',
-      title: 'Пароль',
-      index: 2,
-    },
-  },
-};
+const validator = new FormValidator(checks);
+validator.setDataHandler(controller.signIn.bind(controller));
 
-const checks = {
-  login: [
-    Validator.CHECKS.ALPHANUMERIC,
-    Validator.CHECKS.LENGTH(3, 20),
-  ],
-  password: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.LENGTH(8, 40),
-  ],
-};
+export class LoginPage extends Component {
+  constructor(props: any) {
+    const button = new Button({ caption: 'Авторизоваться', type: 'submit' });
+    if (button.element) {
+      Handlebars.registerPartial('button', button.element.innerHTML);
+    }
+    super(props);
+    this.element.addEventListener('click', (e) => this.clickHandler(e));
+  }
 
-const button = new Button({
-  name: 'Авторизоваться',
-});
+  beforeCompile() {
+    validator.detach();
+  }
 
-if (button.element) {
-  Handlebars.registerPartial('button', button.element.innerHTML);
-}
+  afterCompile() {
+    if (this.element) validator.attach(this.element, '.auth-form');
+  }
 
-page.render(html, data);
+  afterMount() {
+    controller.checkAuth();
+  }
 
-const form: HTMLFormElement | null = document.querySelector('.auth-form');
+  compile(context: any) {
+    return Handlebars.compile(template)(context);
+  }
 
-if (form) {
-  new Validator(form, checks);
+  clickHandler(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('register-link')) controller.go(Routes.signup);
+  }
 }

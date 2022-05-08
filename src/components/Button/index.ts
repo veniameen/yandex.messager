@@ -1,12 +1,12 @@
-import { Block } from '../../modules/Block.js';
-import template from './template.js';
+import template from './template';
+import Component from '../../modules/Component';
 
-export default class Button extends Block {
+export default class Button extends Component {
   constructor(props: object) {
-    super('button', props);
+    super(props);
   }
 
-  render() {
-    return template;
+  compile(context: any) {
+    return Handlebars.compile(template)(context);
   }
 }

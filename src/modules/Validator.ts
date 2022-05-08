@@ -14,9 +14,17 @@ export default class Validator {
       exp: /^[A-Za-zА-Яа-яё0-9_-]*$/,
       err: 'Недопустимые символы',
     },
+    FIRSTLETTER: {
+      exp: /^[A-ZА-Я]/,
+      err: 'Первая буква должна быть заглавной',
+    },
     REQUIRED: {
       exp: /^.{1,}$/,
       err: 'Не может быть пустым',
+    },
+    LOGIN: {
+      exp: /[A-Za-z]+[0-9]*$/,
+      err: 'Не может состоять только из цифр',
     },
     EMAIL: {
       exp: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -27,42 +35,76 @@ export default class Validator {
       err: 'Недопустимый формат номера',
     },
     PASSWORD_STRENGTH: {
-      exp: /(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,40})/,
+      exp: /(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]))/,
       err: 'Слишком простой пароль',
     },
   };
 
-  protected readonly _form: HTMLFormElement;
-  protected readonly _rules: any;
-  protected readonly _inputs: NodeListOf<HTMLInputElement>;
+  static readonly inputEvents = ['blur', 'keydown', 'keyup'];
 
-  constructor(form: HTMLFormElement, rules: object) {
+  protected _form: Element | null;
+  protected _inputs: NodeListOf<any> | null;
+  protected _dataHandler: Function | null = null;
+
+  constructor(protected readonly _rules: any) {}
+
+  public attach(root: Element, selector: string) {
+    let form = root.querySelector(selector);
+    if (!form) {
+      throw new Error(`${this.constructor.name}: Form '${selector}' not found`);
+    }
+    let inputs = form.querySelectorAll('input');
+    if (inputs.length === 0) {
+      throw new Error(`${this.constructor.name}: Form '${selector}' has no input fields`);
+    }
     this._form = form;
-    this._rules = rules;
-    this._inputs = form.querySelectorAll('input');
-    this.bindListeners();
+    this._inputs = inputs;
+    this._bindListeners();
   }
 
-  protected bindListeners() {
-    this._inputs.forEach((input: HTMLElement) =>
-      input.addEventListener('blur', this._validate.bind(this)),
-    );
-    this._inputs.forEach((input: HTMLElement) =>
-      input.addEventListener('focus', this._validate.bind(this)),
-    );
+  public detach() {
+    this._unbindListeners();
+    this._form = null;
+    this._inputs = null;
+  }
+
+  public setDataHandler(callback: Function): void {
+    this._dataHandler = callback;
+  }
+
+  protected _handle() {
+    let data: any = {};
+    if (!(this._inputs && this._dataHandler)) return;
+    this._inputs.forEach((input) => (data[input.name] = input.value));
+    this._dataHandler(data);
+  }
+
+  protected _bindListeners() {
+    if (!(this._inputs && this._form)) return;
+    Validator.inputEvents.forEach((event) => {
+      // @ts-ignore
+      this._inputs.forEach((input: HTMLElement) => input.addEventListener(`${event}`, this._validate.bind(this)));
+    });
     this._form.addEventListener('submit', this._submitHandler.bind(this));
+  }
+
+  protected _unbindListeners() {
+    if (!(this._inputs && this._form)) return;
+    Validator.inputEvents.forEach((event) => {
+      // @ts-ignore
+      this._inputs.forEach((input: HTMLElement) => input.removeEventListener(`${event}`, this._validate.bind(this)));
+    });
+    this._form.removeEventListener('submit', this._submitHandler.bind(this));
   }
 
   protected _validate(event: { target: HTMLInputElement }) {
     const input = event.target;
-    if (!this._rules.hasOwnProperty(input.name)) return;
+    if (!this._rules.hasOwnProperty(input.name)) return true;
 
-    if (!input.parentNode) return;
+    let errorField = null;
 
-    const errorField = input.parentNode.querySelector('.field__error');
-
-    if (!errorField) {
-      return;
+    if (input.parentNode) {
+      errorField = input.parentNode.querySelector('.field__error');
     }
 
     let err: string | null = null;
@@ -73,26 +115,25 @@ export default class Validator {
     });
 
     if (err) {
-      errorField.textContent = err;
-      errorField.classList.toggle('field__error--show', true);
-    } else errorField.classList.toggle('field__error--show', false);
+      if (errorField) {
+        errorField.textContent = err;
+        errorField.classList.add('field__error--show');
+      }
+      return false;
+    }
+
+    if (errorField) errorField.classList.remove('field__error--show');
+    return true;
   }
 
   protected _submitHandler(event: Event) {
     event.preventDefault();
-
-    let formData: Object = {};
-
-    this._inputs.forEach((input: HTMLInputElement) => {
-      formData = {
-        ...formData,
-        [input.name]: input.value,
-      };
-
+    if (!this._inputs) return;
+    let isValid = true;
+    this._inputs.forEach((input: HTMLElement) => {
       const pseudoEvent: any = { target: input };
-      this._validate(pseudoEvent);
+      if (!this._validate(pseudoEvent)) isValid = false;
     });
-
-    console.log(formData);
+    if (isValid) this._handle();
   }
 }

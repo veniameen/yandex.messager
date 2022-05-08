@@ -18,6 +18,7 @@ module.exports = {
     'max-len': 'off',
     'object-curly-spacing': ['error', 'always'],
     'require-jsdoc': 0,
+    'prefer-const': 0,
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'new-cap': 'off',

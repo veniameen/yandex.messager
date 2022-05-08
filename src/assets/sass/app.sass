@@ -28,7 +28,7 @@ body
   background: var(--background)
   color: #fff
   padding: 0
-  overflow: hidden !important
+  overflow: hidden
 
 img
   pointer-events: none
@@ -62,11 +62,14 @@ h2
     justify-content: right
   &-between
     justify-content: space-between
+  &-end
+    justify-content: flex-end
 
 .link
   font-size: .87vw
   color: var(--blue)
   text-decoration: none
+  cursor: pointer
   transition: opacity .25s ease
   &:hover
     opacity: .5
@@ -102,7 +105,7 @@ h2
 
 .btn
   color: #fff
-  background: var(--place)
+  background: var(--blue)
   width: 100%
   border: 0
   font-size: 1.07vw
@@ -110,11 +113,14 @@ h2
   padding: 0.8vw 0
   cursor: pointer
   text-align: center
+  user-select: none
   transition: opacity .25s ease
-  &-primary
-    background: var(--blue)
-    &:hover
-      opacity: .5
+  &-default
+    background: var(--place)
+  &:hover
+    opacity: .5
+  &-mb
+    margin-bottom: 15px
 
 .field__error
   font-size: .75vw
@@ -128,7 +134,7 @@ h2
   &--show
     display: block
 
-
 @import "layouts/auth.sass"
+@import "layouts/modal.sass"
 @import "layouts/chat/index.sass"
 @import "layouts/profile/index.sass"

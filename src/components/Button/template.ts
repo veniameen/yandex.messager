@@ -1,3 +1,5 @@
 export default `
-    <button class="btn btn-primary">{{name}}</button>
+    <button class="btn {{#each this.classList}} {{this}}{{/each}}" type={{type}}>
+        {{caption}}
+    </button>
 `;

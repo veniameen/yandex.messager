@@ -1,23 +1,23 @@
 export type Options = {
-    data?: any,
-    headers?: Object,
-    timeout?: number
-}
+  data?: any;
+  headers?: Object;
+  timeout?: number;
+};
 
 type RequestOptions = {
-    headers?: object,
-    data?: any,
-    method: string,
-}
+  headers?: Object;
+  data?: any;
+  method: string;
+};
 
 enum METHODS {
-    GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE',
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
-function queryStringify(data: {[key: string]: string}) {
+function queryStringify(data: { [key: string]: string }) {
   return Object.entries(data).reduce((res, [key, value]) => {
     return `${res}${key}=${value}&`;
   }, '?');
@@ -27,25 +27,23 @@ export class HTTPTransport {
   constructor(readonly _baseURL: string) {}
 
   get = (url: string, options: Options = {}) => {
-    if (options.data) {
-      url += queryStringify(options.data);
-    }
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    if (options.data) url += queryStringify(options.data);
+    return this.request( url, { ...options, method: METHODS.GET }, options.timeout );
   };
 
   post = (url: string, options: Options = {}) => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    return this.request( url, { ...options, method: METHODS.POST }, options.timeout );
   };
 
   put = (url: string, options: Options = {}) => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    return this.request( url, { ...options, method: METHODS.PUT }, options.timeout );
   };
 
   delete = (url: string, options: Options = {}) => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    return this.request( url, { ...options, method: METHODS.DELETE }, options.timeout );
   };
 
-  request = (url: string, options: RequestOptions, timeout: number = 5000): Promise<any> => {
+  request = ( url: string, options: RequestOptions, timeout: number = 5000 ): Promise<any> => {
     const { headers = {}, method, data } = options;
     url = `${this._baseURL}${url}`;
 
@@ -67,17 +65,15 @@ export class HTTPTransport {
       xhr.responseType = 'json';
 
       const headersEntries = Object.entries(headers);
-      if (headersEntries.length) {
-        headersEntries.forEach((header) => xhr.setRequestHeader(header[0], header[1]));
-      } else {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-      }
+      if (headersEntries.length) headersEntries.forEach((header) => xhr.setRequestHeader(header[0], header[1]) );
 
       if (method === METHODS.GET || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
-        console.log(JSON.stringify(data));
       }
     });
   };

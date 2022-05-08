@@ -1,67 +1,66 @@
-import { page } from '../../utils/hbs-render.js';
-import Button from '../../components/Button/index.js';
-import Validator from '../../modules/Validator.js';
-import html from './template.js';
+import { template } from './template';
+import Button from '../../components/button/index';
+import Validator from '../../modules/Validator';
+import Component from '../../modules/Component';
+import { profileValidationRules as checks, storeMap } from '../../config';
+import controller from './controller';
 
-const data = {
-  photo: '/images/temp/1.png',
-  name: 'Иван Иванов',
-  fields: [
-    { name: 'email', type: 'text', title: 'Почта', value: 'pochta@yandex.ru' },
-    { name: 'login', type: 'text', title: 'Логин', value: 'ivanivanov' },
-    { name: 'first_name', type: 'text', title: 'Имя', value: 'Иван' },
-    { name: 'second_name', type: 'text', title: 'Фамилия', value: 'Иванов' },
-    {
-      name: 'display_name',
-      type: 'text',
-      title: 'Имя в чате',
-      value: 'ivanivanov',
-    },
-    { name: 'phone', type: 'tel', title: 'Телефон', value: '+7192471842' },
-  ],
-};
+const validator = new Validator(checks);
+validator.setDataHandler(controller.changeProfileInfo.bind(controller));
 
-const checks = {
-  email: [Validator.CHECKS.REQUIRED, Validator.CHECKS.EMAIL],
-  login: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.LENGTH(3, 20),
-    Validator.CHECKS.ALPHANUMERIC,
-  ],
-  first_name: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.ALPHABETIC,
-    Validator.CHECKS.LENGTH(3, 28),
-  ],
-  second_name: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.ALPHABETIC,
-    Validator.CHECKS.LENGTH(3, 28),
-  ],
-  display_name: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.ALPHABETIC,
-    Validator.CHECKS.LENGTH(3, 28),
-  ],
-  phone: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.PHONE,
-    Validator.CHECKS.LENGTH(10, 15),
-  ],
-};
+export class ProfileDataPage extends Component {
+  constructor(props: any) {
+    const saveButton = new Button({ caption: 'Сохранить', type: 'submit' } );
+    if (saveButton.element) {
+      Handlebars.registerPartial('saveButton', saveButton.element.innerHTML);
+    };
+    const changeButton = new Button({ caption: 'Поменять', type: 'submit' } );
+    if (changeButton.element) {
+      Handlebars.registerPartial('changeButton', changeButton.element.innerHTML);
+    };
+    super(props, storeMap.profilePageProps);
+    this.element.addEventListener('click', (e) => this.clickHandler(e));
+  }
 
-const button = new Button({
-  name: 'Сохранить',
-});
+  beforeCompile() {
+    validator.detach();
+    const avatarForm = this.element.querySelector('.avatar-form');
+    if (avatarForm) avatarForm.removeEventListener('submit', this.avatarFormHandler);
+  }
 
-if (button.element) {
-  Handlebars.registerPartial('button', button.element.innerHTML);
-}
+  async beforeMount() {
+    await controller.pageMountHandler();
+  }
 
-page.render(html, data);
+  compile(context: any) {
+    return Handlebars.compile(template)(context);
+  }
 
-const form: HTMLFormElement | null = document.querySelector('.profile-form');
+  afterCompile() {
+    if (this.element) validator.attach(this.element, '.profile-form');
+    const avatarForm = this.element.querySelector('.avatar-form');
+    if (avatarForm) avatarForm.addEventListener('submit', (e) => this.avatarFormHandler(e));
+  }
 
-if (form) {
-  new Validator(form, checks);
+  clickHandler(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.profile__backlink')) {
+      controller.back();
+    } else if (target.closest('.profile__photo')) {
+      const modal = this.element.querySelector('.modal');
+      if (modal) modal.classList.add('modal_active');
+    } else if (target.classList.contains('modal')) target.classList.remove('modal_active');
+    // @ts-ignore
+    else if (target.classList.contains('field-file')) target.nextElementSibling.click();
+  }
+
+  async avatarFormHandler(event: Event) {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+    const formData = new FormData(target);
+    const response = await controller.changeProfileAvatar(formData);
+    const modal = this.element.querySelector('.modal');
+    if (modal) modal.classList.remove('modal_active');
+    (this.element.querySelector('.profile__photo__change img') as HTMLImageElement).src = controller.updateAvatar(response.response.avatar);
+  }
 }

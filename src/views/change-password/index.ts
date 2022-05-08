@@ -1,43 +1,44 @@
-import { page } from '../../utils/hbs-render.js';
-import Button from '../../components/Button/index.js';
-import Validator from '../../modules/Validator.js';
-import html from './template.js';
+import { template } from './template';
+import Button from '../../components/button/index';
+import Component from '../../modules/Component';
+import Validator from '../../modules/Validator';
+import { passwordValidationRules as checks } from '../../config';
+import controller from './controller';
 
-const data = {
-  photo: '/images/temp/1.png',
-  fields: [
-    { name: 'oldPassword', type: 'password', title: 'Старый пароль', value: 'pochta@yandex.ru' },
-    { name: 'newPassword', type: 'password', title: 'Новый пароль', value: 'pochta@yandex.ru' },
-    { name: 'verifyPassword', type: 'password', title: 'Повторите новый пароль', value: 'pochta@yandex.ru' },
-  ],
+const validator = new Validator(checks);
+validator.setDataHandler(controller.changeProfilePassword.bind(controller));
+
+export class ProfilePasswordPage extends Component {
+  constructor(props: any) {
+    const button = new Button({ caption: 'Сохранить', type: 'submit' });
+    if (button.element) Handlebars.registerPartial('button', button.element.innerHTML);
+    super(props);
+    this.element.addEventListener('click', (e) => this.clickHandler(e));
+  }
+
+  beforeCompile() {
+    validator.detach();
+  }
+
+  async beforeMount() {
+    const userInfo = await controller.updateUserInfo();
+
+    if (!userInfo) return;
+
+    (this.element.querySelector('.profile__fullname') as Element).textContent = userInfo.first_name;
+    (this.element.querySelector('.profile__photo__img') as HTMLImageElement).src = userInfo.avatar;
+  }
+
+  compile(context: any) {
+    return Handlebars.compile(template)(context);
+  }
+
+  afterCompile() {
+    if (this.element) validator.attach(this.element, '.profile-form');
+  }
+
+  clickHandler(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.profile__backlink')) controller.back();
+  }
 };
-
-const checks = {
-  oldPassword: [
-    Validator.CHECKS.REQUIRED,
-  ],
-  newPassword: [
-    Validator.CHECKS.REQUIRED,
-    Validator.CHECKS.PASSWORD_STRENGTH,
-    Validator.CHECKS.LENGTH(8, 40),
-  ],
-  verifyPassword: [
-    Validator.CHECKS.REQUIRED,
-  ],
-};
-
-const button = new Button({
-  name: 'Сохранить',
-});
-
-if (button.element) {
-  Handlebars.registerPartial('button', button.element.innerHTML);
-}
-
-page.render(html, data);
-
-const form: HTMLFormElement | null = document.querySelector('.profile-form');
-
-if (form) {
-  new Validator(form, checks);
-}

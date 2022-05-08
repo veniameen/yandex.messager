@@ -1,4 +1,4 @@
-export default `
+export const template =`
     <div class="content grid grid-column--reverse grid-middle">
         <div class="box">
             <div class="box__content">
@@ -7,7 +7,7 @@ export default `
                     <div class="auth-form__container">
                         {{#each fields}}
                             <div class="auth-form__field">
-                                <input class="auth-form__text-input" id={{name}} type={{type}} name={{name}} tabindex={{index}} autocorrect="off" autocapitalize="off" value=""required>
+                                <input class="auth-form__text-input" id={{name}} type={{type}} name={{name}} tabindex={{index}} autocorrect="off" autocapitalize="off" value="War123123;"required>
                                 <label class="auth-form__label" for={{name}}>{{title}}</label>
                                 <span class="field__error"></span>
                             </div>
@@ -17,10 +17,27 @@ export default `
                         {{> button}}
                     </div>
                     <div class="auth-form__callout">
-                        <a class="link" href="registration.html">Нет аккаунта?</a>
+                        <a class="link link-register">Нет аккаунта?</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 `;
+
+export const data = {
+  fields: {
+    login: {
+      name: 'login',
+      type: 'text',
+      title: 'Логин',
+      index: 1,
+    },
+    password: {
+      name: 'password',
+      type: 'password',
+      title: 'Пароль',
+      index: 2,
+    },
+  },
+};

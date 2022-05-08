@@ -1,17 +1,33 @@
-import { page } from '../../utils/hbs-render.js';
-import html from './template.js';
+import Component from '../../modules/Component';
+import { storeMap } from '../../config';
+import controller from './controller';
+import { Routes } from '../../index';
+import { template } from './template';
 
-const data = {
-  photo: '/images/temp/1.png',
-  name: 'Иван Иванов',
-  fields: [
-    { name: 'email', type: 'text', title: 'Почта', value: 'pochta@yandex.ru' },
-    { name: 'login', type: 'text', title: 'Логин', value: 'ivanivanov' },
-    { name: 'first_name', type: 'text', title: 'Имя', value: 'Иван' },
-    { name: 'second_name', type: 'text', title: 'Фамилия', value: 'Иванов' },
-    { name: 'display_name', type: 'text', title: 'Имя в чате', value: 'ivanivanov' },
-    { name: 'phone', type: 'tel', title: 'Телефон', value: '+7192471842' },
-  ],
+export class ProfilePage extends Component {
+  constructor(props: any) {
+    super(props, storeMap.profilePageProps);
+    this.element.addEventListener('click', (e) => this.clickHandler(e));
+  }
+
+  beforeMount() {
+    controller.updateUserInfo();
+  }
+
+  compile(context: any) {
+    return Handlebars.compile(template)(context);
+  }
+
+  clickHandler(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.profile__backlink')) {
+      controller.back();
+    } else if (target.closest('.edit-profile-link')) {
+      controller.go(Routes.profileData);
+    } else if (target.closest('.edit-password-link')) {
+      controller.go(Routes.profilePassword);
+    } else if (target.closest('.logout-link')) {
+      controller.logout();
+    }
+  }
 };
-
-page.render(html, data);
